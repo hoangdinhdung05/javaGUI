@@ -1,5 +1,17 @@
+import javax.swing.UIManager;
+
+import view.MouseExampleView;
+
 class test {
     public static void main(String[] args) {
-        System.out.println("Hi");
+        try {
+            
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            new MouseExampleView();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
     }
 }
