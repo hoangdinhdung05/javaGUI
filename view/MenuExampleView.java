@@ -11,14 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 
 import controller.MenuExampleController;
+import controller.MenuExampleMouseListener;
 
 public class MenuExampleView extends JFrame {
     
     private JLabel jLabel;
+    public JPopupMenu jPopupMenu;
 
     public MenuExampleView() {
         this.setTitle("Menu Example");
@@ -26,7 +29,7 @@ public class MenuExampleView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
-        
+
         //Controller
         MenuExampleController menuExampleController = new MenuExampleController(this);
 
@@ -99,6 +102,36 @@ public class MenuExampleView extends JFrame {
 
         this.add(jToolBar, BorderLayout.NORTH);
 
+        // Menu chuột phải JPopupMenu
+		jPopupMenu = new JPopupMenu();
+		
+		JMenu jMenuPoupFont = new JMenu("Font");
+		JMenuItem jMenuItemType = new JMenuItem("Type");
+		jMenuItemType.addActionListener(menuExampleController);
+		JMenuItem jMenuItemSize = new JMenuItem("Size");
+		jMenuItemSize.addActionListener(menuExampleController);
+		jMenuPoupFont.add(jMenuItemType);
+		jMenuPoupFont.add(jMenuItemSize);
+		
+		JMenuItem jMenuItemCut = new JMenuItem("Cut");
+		jMenuItemCut.addActionListener(menuExampleController);
+		JMenuItem jMenuItemCopy = new JMenuItem("Copy");
+		jMenuItemCopy.addActionListener(menuExampleController);
+		JMenuItem jMenuItemPaste = new JMenuItem("Paste");
+		jMenuItemPaste.addActionListener(menuExampleController);
+		
+		jPopupMenu.add(jMenuPoupFont);
+		jPopupMenu.addSeparator();
+		jPopupMenu.add(jMenuItemCut);
+		jPopupMenu.add(jMenuItemCopy);
+		jPopupMenu.add(jMenuItemPaste);
+		
+		this.add(jPopupMenu);
+		
+		// Thêm sự kiện phải chuột vào JLabel
+		MenuExampleMouseListener menuExampleMouseListener = new MenuExampleMouseListener(this);
+		this.addMouseListener(menuExampleMouseListener);
+        
         //Tạo Label hiển thị
         // Font font = new Font("Arial", Font.BOLD, 50);
         jLabel = new JLabel();
